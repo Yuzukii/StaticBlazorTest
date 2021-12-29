@@ -33,16 +33,49 @@ else
             }
         </tbody>
     </table>
+
+    <table>
+        <thead>
+            <tr>
+                <th class = "col-md-4">Snow</th>
+                <th class = "col-md-4">Risk Potential</th>
+                <th class = "col-md-4">Recommendation</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var alert in alerts)
+            {
+                <tr>
+                    <td>@alert.SnowLvl</td>
+                    <td>@alert.RiskPot</td>
+                    <td>@alert.Recommendation</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 
 @code {
     private WeatherForecast[] forecasts = new WeatherForecast[]{};
 
+    private SnowAlert[] alerts = new SnowAlert[]{};
+
     protected override async Task OnInitializedAsync()
     {
+
+        var test = "";
         try
         {
             forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("/api/WeatherForecast") ?? new WeatherForecast[]{};
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+
+        try
+        {
+            alerts = await Http.GetFromJsonAsync<SnowAlert[]>("/api/SnowLevel") ?? new SnowAlert[]{};
         }
         catch (Exception ex)
         {

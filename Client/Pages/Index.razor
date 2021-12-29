@@ -1,9 +1,64 @@
 ﻿@page "/"
+@using BlazorApp.Shared 
+@inject HttpClient Http
 
-<PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+
+<h1>@test, @test!</h1>
 
 Welcome to your new app.
 
+This is from the API: @test
+
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+
+@*@code{
+    private string test = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            test = await Http.GetFromJsonAsync<string>("/api/HttpExample") ?? "Empty";
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    
+    }
+}*@
+
+@code {
+
+    private string? test { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        //await base.OnInitializedAsync();
+
+        try
+        {
+            test = await GetResponseString();
+            //await InvokeAsync(() =>
+            //{
+            //    StateHasChanged();
+            //});
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+
+    private async Task<string> GetResponseString()
+    {
+        var response = await Http.GetAsync("/api/HttpExample");
+        var content = await response.Content.ReadAsStringAsync();
+
+        return content;
+    }
+}
