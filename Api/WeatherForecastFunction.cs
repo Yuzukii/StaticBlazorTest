@@ -133,7 +133,7 @@ namespace BlazorApp.Api
             string responseMessage = "Hello from the API :P";
 
 
-            return new OkObjectResult(new string("Got issue siah"));
+            return new OkObjectResult(responseMessage);
         }
     }
 }
