@@ -130,7 +130,7 @@ namespace BlazorApp.Api
             //    ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
             //    : $"Hello, {name}. This HTTP triggered function executed successfully.";
 
-            string responseMessage = "Hello from the API :P";
+            string responseMessage = "Hello from the API";
 
 
             return new OkObjectResult(responseMessage);
